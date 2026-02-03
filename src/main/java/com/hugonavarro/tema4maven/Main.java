@@ -1,6 +1,8 @@
 package com.hugonavarro.tema4maven;
 
 import com.github.lalyos.jfiglet.FigletFont;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
@@ -9,6 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static void dibujo(Screen pantalla, List<String> lineas, int yOffset) throws IOException {
+        TerminalSize medida = pantalla.getTerminalSize();
+        int ancho = medida.getColumns();
+        int alto = medida.getRows();
+
+        pantalla.clear();
+        TextGraphics tg = pantalla.newTextGraphics();
+
+        for (int i = 0; i < lineas.size(); i++) {
+            int y = yOffset + i;
+            if (y < 0 || y >= alto) continue;
+
+            String linea = lineas.get(i);
+            int x = Math.max(0, (ancho - linea.length()) / 2);
+            if (x >= ancho) continue;
+
+            String visible = linea.length() > ancho ? linea.substring(0, ancho) : linea;
+
+            tg.putString(x, y, visible);
+        }
+
+        pantalla.refresh();
+    }
+
     public static void main(String[] args) throws IOException {
         List<String> lineas = new ArrayList<>();
         String texto = "Hugo Navarro";

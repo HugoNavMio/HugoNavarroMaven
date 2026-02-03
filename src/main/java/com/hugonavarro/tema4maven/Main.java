@@ -58,5 +58,17 @@ public class Main {
         lineas.add("Habilidades: Programar y utilizar sistemas operativos");
         lineas.add("Idiomas: Español e Inglés");
         lineas.add("Teléfono: +34 123 45 67 89");
+
+        int yOffset = pantalla.getTerminalSize().getRows();
+
+        while (yOffset > -lineas.size()) {
+            dibujo(pantalla, lineas, yOffset);
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ignored) {}
+
+            yOffset--;
+        }
     }
 }

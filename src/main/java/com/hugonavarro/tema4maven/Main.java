@@ -1,6 +1,8 @@
 package com.hugonavarro.tema4maven;
 
 import com.github.lalyos.jfiglet.FigletFont;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +13,9 @@ public class Main {
         List<String> lineas = new ArrayList<>();
         String texto = "Hugo Navarro";
         String banner = FigletFont.convertOneLine(texto);
+        Screen pantalla = new DefaultTerminalFactory().createScreen();
+        pantalla.startScreen();
+        pantalla.setCursorPosition(null);
 
         for (String linea : banner.split("\n")) {
             lineas.add(linea);
